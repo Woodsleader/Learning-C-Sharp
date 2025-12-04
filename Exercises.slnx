@@ -11,4 +11,5 @@
   <Project Path="10_Methods_TextCleaner/10_Methods_TextCleaner.csproj" />
   <Project Path="11_Classes_HeroMaker/11_Classes_HeroMaker.csproj" Id="4043b3f3-b420-49df-b35a-7b745be414bb" />
   <Project Path="12_Lists_Collections/12_Lists_Collections.csproj" Id="a40e3934-48d9-4021-b2d2-7621ef206358" />
+  <Project Path="13_List_Methods/13_List_Methods.csproj" Id="44711f1d-029a-4138-9899-775d4f702806" />
 </Solution>
