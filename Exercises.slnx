@@ -13,4 +13,5 @@
   <Project Path="12_Lists_Collections/12_Lists_Collections.csproj" Id="a40e3934-48d9-4021-b2d2-7621ef206358" />
   <Project Path="13_List_Methods/13_List_Methods.csproj" Id="44711f1d-029a-4138-9899-775d4f702806" />
   <Project Path="14_List_Operations/14_List_Operations.csproj" Id="6b8dbf78-f646-442e-8ccb-723fc8130e33" />
+  <Project Path="15_Class_Methods/15_Class_Methods.csproj" Id="d7557718-3faf-4a88-8faa-1376bd53e4e6" />
 </Solution>
