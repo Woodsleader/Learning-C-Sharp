@@ -11,30 +11,8 @@ namespace _16_RPG_Exercise
 
         public Shop()
         {
-            Sword steelSword = new Sword();
-            steelSword.Name = "Steel sword";
-            steelSword.Price = 100;
-            steelSword.Damage = 25;
-            Sword dragonSlayer = new Sword();
-            dragonSlayer.Name = "Dragon slayer";
-            dragonSlayer.Price = 1000;
-            dragonSlayer.Damage = 50;
-            Armor chainmail = new Armor();
-            chainmail.Name = "Chainmail";
-            chainmail.Price = 50;
-            chainmail.ArmorStat = 10;
-            Armor plateArmor = new Armor();
-            plateArmor.Name = "Plate armor";
-            plateArmor.Price = 1000;
-            plateArmor.ArmorStat = 50;
-            HealthPotion smallPotion = new HealthPotion();
-            smallPotion.Name = "Small health potion";
-            smallPotion.Price = 100;
-            smallPotion.Healing = 25;
-            HealthPotion largePotion = new HealthPotion();
-            largePotion.Name = "Large health potion";
-            largePotion.Price = 200;
-            largePotion.Healing = 50;
+            Sword steelSword = new Sword("Stel sword", 100, 25);
+            Sword dragonSlayer = new Sword("Dragon slayer", 1000, 50);
             AvailableItems.Add(steelSword);
             AvailableItems.Add(dragonSlayer);
             AvailableItems.Add(chainmail);
