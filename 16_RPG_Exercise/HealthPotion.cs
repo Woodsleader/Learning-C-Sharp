@@ -4,9 +4,8 @@ using System.Text;
 
 namespace _16_RPG_Exercise
 {
-    public class Item
+    public class HealthPotion : Item
     {
-        public string Name;
-        public int Price;
+        public int Healing;
     }
 }
