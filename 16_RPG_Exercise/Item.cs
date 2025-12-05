@@ -8,5 +8,6 @@ namespace _16_RPG_Exercise
     {
         public string Name;
         public int Price;
+        public int SellingPrice => Price / 2;
     }
 }

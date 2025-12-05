@@ -18,7 +18,7 @@ while (!finalBossDefeated)
     switch (userChoice)
     {
         case 1:
-            Console.WriteLine($"{Environment.NewLine}You have entered the shop.{Environment.NewLine}");
+            Console.WriteLine($"{Environment.NewLine}You have entered the shop.");
             bool isInShop = true;
             while (isInShop)
             {
@@ -28,16 +28,20 @@ while (!finalBossDefeated)
                 {
                     case 1:
                         Console.WriteLine($"{Environment.NewLine}Available items:");
-                        for (int i = 0; i < shop.AvailableItems.Count; i++)
+                        for (int i = 0; i < shop.availableItems.Count; i++)
                         {
-                            Console.WriteLine($"{i + 1} - {shop.AvailableItems[i].Name}");
+                            Console.WriteLine($"{i + 1} - {shop.availableItems[i].Name} {shop.availableItems[i].Price} gold coins.");
                         }
                         Console.WriteLine($"{Environment.NewLine}");
                         int itemToBuy = int.Parse(Console.ReadLine()) - 1;
-                        shop.CharacterBuys(shop.AvailableItems[itemToBuy], character, inventory);
+                        shop.CharacterBuys(shop.availableItems[itemToBuy], character, inventory);
                         break;
                     case 2:
-                        Console.WriteLine("Select wich item to sell");
+                        Console.WriteLine($"{Environment.NewLine}Select wich item to sell:");
+                        for (int i = 0; i < inventory.characterInventory.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1} - {inventory.characterInventory[i].Name} {inventory.characterInventory[i].SellingPrice} gold coins.");
+                        }
                         break;
 
                 }
