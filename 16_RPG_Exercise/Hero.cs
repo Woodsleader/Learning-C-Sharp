@@ -21,7 +21,7 @@ namespace _16_RPG_Exercise
         }
         public void RemoveGold(int goldAmount)
         {
-            this.Gold += goldAmount;
+            this.Gold -= goldAmount;
         }
     }
 }

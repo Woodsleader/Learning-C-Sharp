@@ -21,10 +21,5 @@ namespace _16_RPG_Exercise
         {
             this.characterInventory.Add(item);
         }
-        public void SellItem(Item item, Hero heroRecievingGold)
-        {
-            this.characterInventory.Remove(item);
-            heroRecievingGold.Gold += item.Price;
-        }
     }
 }
