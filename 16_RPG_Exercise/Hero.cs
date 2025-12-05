@@ -14,5 +14,14 @@ namespace _16_RPG_Exercise
         public int Attack = 10;
         public int Armor = 5;
         public int Evasion = 0;
+
+        public void AddGold(int goldAmount)
+        {
+            this.Gold += goldAmount;
+        }
+        public void RemoveGold(int goldAmount)
+        {
+            this.Gold += goldAmount;
+        }
     }
 }
