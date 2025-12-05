@@ -27,12 +27,13 @@ while (!finalBossDefeated)
                 {
                     case 1:
                         Console.WriteLine($"Available items:{Environment.NewLine}");
-                        foreach (Item i in shop.AvailableItems)
+                        for (int i = 1; i < shop.AvailableItems.Count(); i++)
                         {
-                            int itemSlot = shop.AvailableItems.IndexOf(i) + 1;
-                            Console.WriteLine($"{itemSlot} - {i.Name}");
+                            Console.WriteLine($"{i} - {shop.AvailableItems[i].Name}");
                         }
-                        int buyChoice = int.Parse(Console.ReadLine());
+                        break;
+                    case 2:
+                        Console.WriteLine("Select wich item to sell");
                         break;
 
                 }
