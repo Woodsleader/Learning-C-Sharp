@@ -12,7 +12,18 @@ while (!finalBossDefeated)
     switch (userChoice)
     {
         case 1:
-            Console.WriteLine("You have entered the store.");
+            Console.WriteLine($"You have entered the store.{Environment.NewLine}");
+            bool isInShop = true;
+            while (isInShop)
+            {
+                Console.WriteLine($"What do you want to do?{Environment.NewLine}1 - Buy.{Environment.NewLine}2 - Sell.{Environment.NewLine}3 - Leave.");
+                int userChoiceShop = int.Parse(Console.ReadLine());
+                switch (userChoiceShop)
+                {
+                    case 1:
+
+                }
+            }
             break;
         case 2:
             Console.WriteLine("You have entered the tavern.");
@@ -21,7 +32,7 @@ while (!finalBossDefeated)
             Console.WriteLine("You are outside the dungeon.");
             break;
         default:
-            Console.WriteLine("Choose again.");
+            Console.WriteLine("Type a number between 1 and 3");
             break;
     }
 }

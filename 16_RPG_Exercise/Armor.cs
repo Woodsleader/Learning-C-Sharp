@@ -4,9 +4,8 @@ using System.Text;
 
 namespace _16_RPG_Exercise
 {
-    public class Item
+    public class Armor : Item
     {
-        public string Name;
-        public int Price;
+        public int ArmorStat;
     }
 }
