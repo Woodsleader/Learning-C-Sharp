@@ -1,6 +1,11 @@
 ﻿using _16_RPG_Exercise;
 
+//We start the necessary clasees
 Hero character = new Hero();
+Shop shop = new Shop();
+
+//Variables
+
 Console.WriteLine("What is your hero's name?");
 character.Name = Console.ReadLine();
 bool finalBossDefeated = false;
@@ -12,7 +17,7 @@ while (!finalBossDefeated)
     switch (userChoice)
     {
         case 1:
-            Console.WriteLine($"You have entered the store.{Environment.NewLine}");
+            Console.WriteLine($"You have entered the shop.{Environment.NewLine}");
             bool isInShop = true;
             while (isInShop)
             {
@@ -21,6 +26,14 @@ while (!finalBossDefeated)
                 switch (userChoiceShop)
                 {
                     case 1:
+                        Console.WriteLine($"Available items:{Environment.NewLine}");
+                        foreach (Item i in shop.AvailableItems)
+                        {
+                            int itemSlot = shop.AvailableItems.IndexOf(i) + 1;
+                            Console.WriteLine($"{itemSlot} - {i.Name}");
+                        }
+                        int buyChoice = int.Parse(Console.ReadLine());
+                        break;
 
                 }
             }
