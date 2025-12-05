@@ -3,6 +3,7 @@
 //We start the necessary clasees
 Hero character = new Hero();
 Shop shop = new Shop();
+Inventory inventory = new Inventory();
 
 //Variables
 
@@ -12,25 +13,28 @@ bool finalBossDefeated = false;
 
 while (!finalBossDefeated)
 {
-    Console.WriteLine($"Where do you want to go?{Environment.NewLine}1 - Shop {Environment.NewLine}2 - Tavern {Environment.NewLine}3 - Dungeon ");
+    Console.WriteLine($"{Environment.NewLine}Where do you want to go?{Environment.NewLine}1 - Shop {Environment.NewLine}2 - Tavern {Environment.NewLine}3 - Dungeon{Environment.NewLine}");
     int userChoice = int.Parse(Console.ReadLine());
     switch (userChoice)
     {
         case 1:
-            Console.WriteLine($"You have entered the shop.{Environment.NewLine}");
+            Console.WriteLine($"{Environment.NewLine}You have entered the shop.{Environment.NewLine}");
             bool isInShop = true;
             while (isInShop)
             {
-                Console.WriteLine($"What do you want to do?{Environment.NewLine}1 - Buy.{Environment.NewLine}2 - Sell.{Environment.NewLine}3 - Leave.");
+                Console.WriteLine($"{Environment.NewLine}What do you want to do?{Environment.NewLine}1 - Buy.{Environment.NewLine}2 - Sell.{Environment.NewLine}3 - Leave.{Environment.NewLine}");
                 int userChoiceShop = int.Parse(Console.ReadLine());
                 switch (userChoiceShop)
                 {
                     case 1:
-                        Console.WriteLine($"Available items:{Environment.NewLine}");
-                        for (int i = 1; i < shop.AvailableItems.Count(); i++)
+                        Console.WriteLine($"{Environment.NewLine}Available items:");
+                        for (int i = 0; i < shop.AvailableItems.Count; i++)
                         {
-                            Console.WriteLine($"{i} - {shop.AvailableItems[i].Name}");
+                            Console.WriteLine($"{i + 1} - {shop.AvailableItems[i].Name}");
                         }
+                        Console.WriteLine($"{Environment.NewLine}");
+                        int itemToBuy = int.Parse(Console.ReadLine()) - 1;
+                        shop.CharacterBuys(shop.AvailableItems[itemToBuy], character, inventory);
                         break;
                     case 2:
                         Console.WriteLine("Select wich item to sell");

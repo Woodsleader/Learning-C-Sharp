@@ -24,5 +24,12 @@ namespace _16_RPG_Exercise
             AvailableItems.Add(smallPotion);
             AvailableItems.Add(largePotion);
         }
+
+        public void CharacterBuys(Item itemToBuy, Hero character, Inventory inventory)
+        {
+            this.AvailableItems.Remove(itemToBuy);
+            character.AddGold(itemToBuy.Price);
+            inventory.AddItem(itemToBuy);
+        }
     }
 }
