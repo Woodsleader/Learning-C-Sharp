@@ -15,13 +15,33 @@ namespace _16_RPG_Exercise
         public int Armor = 5;
         public int Evasion = 0;
 
-        public void AddGold(int goldAmount)
+        public Inventory Backpack = new Inventory();
+
+        public Hero()
         {
-            this.Gold += goldAmount;
+            Sword rustySword = new Sword("Rusty sword", 0, 5);
+            this.Backpack.AddItem(rustySword);
+            Armor leatherArmor = new Armor("Leather armor", 10, 3);
+            this.Backpack.AddItem(leatherArmor);
         }
-        public void RemoveGold(int goldAmount)
+
+        //Add/remove gold
+        public void AddGold(int amount)
         {
-            this.Gold -= goldAmount;
+            this.Gold += amount;
+        }
+        public void RemoveGold(int amount)
+        {
+            this.Gold -= amount;
+        }
+        //Add/remove health
+        public void AddHealth(int amount)
+        {
+            this.Health += amount;
+        }
+        public void RemoveHealth(int amount)
+        {
+            this.Health -= amount;
         }
     }
 }

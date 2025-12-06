@@ -25,11 +25,20 @@ namespace _16_RPG_Exercise
             availableItems.Add(largePotion);
         }
 
-        public void CharacterBuys(Item itemToBuy, Hero character, Inventory inventory)
+        public void CharacterBuys(Item itemToBuy, Hero character)
         {
-            this.availableItems.Remove(itemToBuy);
-            character.AddGold(itemToBuy.Price);
-            inventory.AddItem(itemToBuy);
+            character.RemoveGold(itemToBuy.Price);
+            character.Backpack.AddItem(itemToBuy);
+            if (itemToBuy is not HealthPotion)
+            {
+                this.availableItems.Remove(itemToBuy);
+            }
+        }
+        public void CharacterSells(Item itemToSell, Hero character)
+        {
+            this.availableItems.Add(itemToSell);
+            character.AddGold(itemToSell.SellingPrice);
+            character.Backpack.RemoveItem(itemToSell);
         }
     }
 }
