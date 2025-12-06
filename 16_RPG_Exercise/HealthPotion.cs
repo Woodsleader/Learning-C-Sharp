@@ -14,5 +14,9 @@ namespace _16_RPG_Exercise
             this.Price = price;
             this.Healing = healing;
         }
+        public void UsePotion(Hero character)
+        {
+            character.AddHealth(this.Healing);
+        }
     }
 }

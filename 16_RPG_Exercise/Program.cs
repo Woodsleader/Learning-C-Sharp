@@ -13,7 +13,7 @@ bool finalBossDefeated = false;
 
 while (!finalBossDefeated)
 {
-    Console.WriteLine($"{Environment.NewLine}Where do you want to go?{Environment.NewLine}1 - Shop {Environment.NewLine}2 - Tavern {Environment.NewLine}3 - Dungeon{Environment.NewLine}");
+    Console.WriteLine($"{Environment.NewLine}Where do you want to go?{Environment.NewLine}1 - Shop {Environment.NewLine}2 - Tavern {Environment.NewLine}3 - Dungeon{Environment.NewLine}4 - Inventory{Environment.NewLine}");
     int userChoice = int.Parse(Console.ReadLine());
     switch (userChoice)
     {
@@ -34,13 +34,15 @@ while (!finalBossDefeated)
                         }
                         Console.WriteLine($"{Environment.NewLine}");
                         int itemToBuy = int.Parse(Console.ReadLine()) - 1;
-                        shop.CharacterBuys(shop.availableItems[itemToBuy], character, inventory);
+                        shop.CharacterBuys(shop.availableItems[itemToBuy], character);
                         break;
                     case 2:
                         Console.WriteLine($"{Environment.NewLine}Select wich item to sell:");
-                        for (int i = 0; i < inventory.characterInventory.Count; i++)
+                        for (int i = 0; i < inventory.Items.Count; i++)
                         {
-                            Console.WriteLine($"{i + 1} - {inventory.characterInventory[i].Name} {inventory.characterInventory[i].SellingPrice} gold coins.");
+                            Console.WriteLine($"{i + 1} - {inventory.Items[i].Name} {inventory.Items[i].SellingPrice} gold coins.");
+                            int itemToSell = int.Parse(Console.ReadLine());
+                            shop.CharacterSells(shop.availableItems[itemToSell], character, inventory);
                         }
                         break;
 
@@ -52,6 +54,8 @@ while (!finalBossDefeated)
             break;
         case 3:
             Console.WriteLine("You are outside the dungeon.");
+            break;
+        case 4:
             break;
         default:
             Console.WriteLine("Type a number between 1 and 3");
