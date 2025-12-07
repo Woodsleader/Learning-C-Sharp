@@ -7,36 +7,42 @@ namespace _16_RPG_Exercise
 {
     public class Shop
     {
-        public List<Item> availableItems = new List<Item>();
-
+        public Inventory shopItems = new Inventory();
         public Shop()
         {
             Sword steelSword = new Sword("Steel sword", 100, 25);
             Sword dragonSlayer = new Sword("Dragon slayer", 1000, 50);
-            availableItems.Add(steelSword);
-            availableItems.Add(dragonSlayer);
+            shopItems.AddItem(steelSword);
+            shopItems.AddItem(dragonSlayer);
             Armor chainmail = new Armor("Chainmail", 100, 10);
             Armor plateArmor = new Armor("Plate armor", 1000, 25);
-            availableItems.Add(chainmail);
-            availableItems.Add(plateArmor);
+            shopItems.AddItem(chainmail);
+            shopItems.AddItem(plateArmor);
             HealthPotion smallPotion = new HealthPotion("Small healing potion", 50, 25);
             HealthPotion largePotion = new HealthPotion("Large healing potion", 100, 50);
-            availableItems.Add(smallPotion);
-            availableItems.Add(largePotion);
+            shopItems.AddItem(smallPotion);
+            shopItems.AddItem(largePotion);
         }
 
         public void CharacterBuys(Item itemToBuy, Hero character)
         {
-            character.RemoveGold(itemToBuy.Price);
-            character.Backpack.AddItem(itemToBuy);
-            if (itemToBuy is not HealthPotion)
+            if (itemToBuy.Price <= character.Gold)
             {
-                this.availableItems.Remove(itemToBuy);
+                character.RemoveGold(itemToBuy.Price);
+                character.Backpack.AddItem(itemToBuy);
+                if (itemToBuy is not HealthPotion)
+                {
+                    this.shopItems.RemoveItem(itemToBuy);
+                }
+            }
+            else
+            {
+                Console.WriteLine($"You need {itemToBuy.Price - character.Gold} gold more to affort the item!");
             }
         }
         public void CharacterSells(Item itemToSell, Hero character)
         {
-            this.availableItems.Add(itemToSell);
+            this.shopItems.AddItem(itemToSell);
             character.AddGold(itemToSell.SellingPrice);
             character.Backpack.RemoveItem(itemToSell);
         }
