@@ -14,17 +14,78 @@ namespace _16_RPG_Exercise
         public int Attack = 10;
         public int Armor = 5;
         public int Evasion = 0;
+        public Sword? EquippedSword;
+        public Armor? EquippedArmor;
 
         public Inventory Backpack = new Inventory();
 
         public Hero()
         {
             Sword rustySword = new Sword("Rusty sword", 0, 5);
-            this.Backpack.AddItem(rustySword);
+            this.EquippedSword = rustySword;
             Armor leatherArmor = new Armor("Leather armor", 10, 3);
-            this.Backpack.AddItem(leatherArmor);
+            this.EquippedArmor = leatherArmor;
         }
 
+        //Equip items
+        public void EquipItem(Item itemToEquip)
+        {
+            if (itemToEquip is Sword newSword)
+            {
+                if (this.EquippedSword != null)
+                {
+                    this.Backpack.AddItem(EquippedSword);
+                }
+                this.EquippedSword = newSword;
+                this.Backpack.RemoveItem(itemToEquip);
+            }
+            else if (itemToEquip is Armor newArmor)
+            {
+                if (this.EquippedArmor != null)
+                {
+                    this.Backpack.AddItem(EquippedArmor);
+                }
+                this.EquippedArmor = newArmor;
+                this.Backpack.RemoveItem(itemToEquip);
+            }
+            else
+            {
+                Console.WriteLine("You cannot equip that item!");
+            }
+        }
+        //Unequip item
+        public void UnequipItem(Item itemToUnequip)
+        {
+            if (itemToUnequip is Sword newSword)
+            {
+                if (this.EquippedSword != null)
+                {
+                    this.EquippedSword = null;
+                    this.Backpack.AddItem(itemToUnequip);
+                }
+                else
+                {
+                    Console.WriteLine("You don't have any sword equipped!");
+                }
+            }
+            else if (itemToUnequip is Armor newArmor)
+            {
+                if (this.EquippedArmor != null)
+                {
+                    this.EquippedArmor = null;
+                    this.Backpack.AddItem(itemToUnequip);
+                }
+                else
+                {
+                    Console.WriteLine("You don't have any armor equipped!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("This error is impossible to get, how did you manage to do it?");
+            }
+
+        }
         //Add/remove gold
         public void AddGold(int amount)
         {

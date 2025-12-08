@@ -9,6 +9,7 @@ Console.WriteLine("What is your hero's name?");
 character.Name = Console.ReadLine();
 while(string.IsNullOrWhiteSpace(character.Name) || int.TryParse(character.Name, out _))
 {
+    Console.Clear();
     Console.WriteLine("Try to write a valid name.");
     character.Name = Console.ReadLine();
 }
@@ -39,6 +40,7 @@ while (!finalBossDefeated)
                     Console.WriteLine("Not a valid number, try again.");
                 }
                 Console.Clear();
+
                 switch (userChoiceShop)
                 {
                     case 1:
@@ -69,7 +71,7 @@ while (!finalBossDefeated)
                         break;
                     case 3:
                         isInShop = false;
-                        break;
+                        break; 
                 }
             }
             break;
@@ -80,6 +82,37 @@ while (!finalBossDefeated)
             Console.WriteLine("You are outside the dungeon.");
             break;
         case 4:
+            bool isInInventory = true;
+            while (isInInventory)
+            {
+                Console.WriteLine($"You're in your inventory.{Environment.NewLine}1 - View equipped items{Environment.NewLine}2 - Equip items{Environment.NewLine}3 - View stats{Environment.NewLine}4 - Leave");
+                int userInventory;
+                while (!int.TryParse(Console.ReadLine(), out userInventory) || userInventory < 1 || userInventory > 4)
+                {
+                    Console.WriteLine("Write a valid number.");
+                }
+                switch (userInventory)
+                {
+                    case 1:
+                        Console.Clear();
+                        Console.WriteLine($"Weapon: {character.EquippedSword.Name}{Environment.NewLine}Armor: {character.EquippedArmor.Name}");
+                        break;
+                    case 2:
+                        Console.Clear();
+                        Console.WriteLine("Available items in your backpack:");
+                        for (int i = 0; i < character.Backpack.Items.Count; i++)
+                        {
+                            Console.WriteLine($"{i + 1} - {character.Backpack.Items[i].Name}");
+                        }
+
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        isInInventory = false;
+                        break;
+                }
+            }
             break;
         default:
             Console.WriteLine("Type a number between 1 and 3");
