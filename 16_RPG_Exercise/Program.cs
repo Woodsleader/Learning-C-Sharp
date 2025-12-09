@@ -1,28 +1,17 @@
 ﻿using _16_RPG_Exercise;
 
+bool finalBossDefeated = false;
 Hero character = new Hero();
 Shop shop = new Shop();
 
-Console.WriteLine("What is your hero's name?");
-character.Name = Console.ReadLine();
-while(string.IsNullOrWhiteSpace(character.Name) || int.TryParse(character.Name, out _))
-{
-    Console.Clear();
-    Console.WriteLine("Try to write a valid name.");
-    character.Name = Console.ReadLine();
-}
-character.Name = char.ToUpper(character.Name[0]) + character.Name.Substring(1).ToLower();
-bool finalBossDefeated = false;
+Console.WriteLine("What's your name, traveller?");
+character.Name = InputHelper.ReadName(Console.ReadLine());
 
 while (!finalBossDefeated)
 {
     Console.Clear();
     Console.WriteLine($"Where do you want to go?{Environment.NewLine}1 - Shop {Environment.NewLine}2 - Tavern {Environment.NewLine}3 - Dungeon{Environment.NewLine}4 - Inventory");
-    int userChoice;
-    while (!int.TryParse(Console.ReadLine(), out userChoice) || userChoice < 1 || userChoice > 4)
-    {
-        Console.WriteLine("Not a valid number, try again.");
-    }
+    int userChoice = InputHelper.ReadInt(1,4);
     Console.Clear();
     switch (userChoice)
     {
@@ -33,13 +22,8 @@ while (!finalBossDefeated)
             while (isInShop)
             {
                 Console.WriteLine($"What do you want to do?{Environment.NewLine}1 - Buy.{Environment.NewLine}2 - Sell.{Environment.NewLine}3 - Leave.");
-                int userChoiceShop;
-                while (!int.TryParse(Console.ReadLine(), out userChoiceShop) || userChoiceShop < 1 || userChoiceShop > 3)
-                {
-                    Console.WriteLine("Not a valid number, try again.");
-                }
+                int userChoiceShop = InputHelper.ReadInt(1, 3);
                 Console.Clear();
-
                 switch (userChoiceShop)
                 {
                     case 1:
@@ -50,14 +34,9 @@ while (!finalBossDefeated)
                             Console.WriteLine($"{i + 1} - {shop.shopItems.Items[i].Name} {shop.shopItems.Items[i].Price} gold coins.");
                         }
                         Console.WriteLine($"{Environment.NewLine}");
-                        int itemToBuy;
-                        while (!int.TryParse(Console.ReadLine(), out itemToBuy) || itemToBuy < 1 || itemToBuy > shop.shopItems.Items.Count)
-                        {
-                            Console.WriteLine("You need to write a valid number.");
-                        }
-                        itemToBuy--;
+                        int itemToBuy = InputHelper.ReadInt(1,shop.shopItems.Items.Count);
                         Console.Clear();
-                        shop.CharacterBuys(shop.shopItems.Items[itemToBuy], character);
+                        shop.CharacterBuys(shop.shopItems.Items[itemToBuy - 1], character);
                         break;
                     case 2:
                         // Sell item
@@ -66,8 +45,8 @@ while (!finalBossDefeated)
                         {
                             Console.WriteLine($"{i + 1} - {character.Backpack.Items[i].Name} {character.Backpack.Items[i].SellingPrice} gold coins.");
                         }
-                        int itemToSell = int.Parse(Console.ReadLine()) - 1;
-                        shop.CharacterSells(character.Backpack.Items[itemToSell], character);
+                        int itemToSell = InputHelper.ReadInt(1, character.Backpack.Items.Count);
+                        shop.CharacterSells(character.Backpack.Items[itemToSell - 1], character);
                         Console.Clear();
                         break;
                     case 3:
@@ -86,7 +65,6 @@ while (!finalBossDefeated)
             bool isInInventory = true;
             while (isInInventory)
             {
-                Console.Clear();
                 Console.WriteLine($"You're in your inventory.{Environment.NewLine}1 - View equipped items{Environment.NewLine}2 - Equip items{Environment.NewLine}3 - Unequip item{Environment.NewLine}4 - View stats{Environment.NewLine}5 - Leave");
                 int userInventory;
                 while (!int.TryParse(Console.ReadLine(), out userInventory) || userInventory < 1 || userInventory > 5)
@@ -104,57 +82,63 @@ while (!finalBossDefeated)
                     case 2:
                         // Equip item
                         Console.Clear();
-                        Console.WriteLine("Available items in your backpack:");
-                        for (int i = 0; i < character.Backpack.Items.Count; i++)
+                        if (character.HasEquippableItems() == true)
                         {
-                            Console.WriteLine($"{i + 1} - {character.Backpack.Items[i].Name}");
-                        }
-                        Console.WriteLine("Select an item to equip.");
-                        int equipChoice;
-                        while (!int.TryParse(Console.ReadLine(), out equipChoice) || equipChoice < 1 || equipChoice > character.Backpack.Items.Count)
-                        {
-                            Console.WriteLine("Write a valid number.");
-                        }
-                        character.EquipItem(character.Backpack.Items[equipChoice - 1]);
-                        Console.Clear();
-                        break;
-                    case 3:
-                        // Unequip item
-                        Console.Clear();
-                        Console.WriteLine($"Equipped items:{Environment.NewLine}1 - Weapon: {character.EquippedSword?.Name ?? "No sword equipped"}{Environment.NewLine}2 - Armor: {character.EquippedArmor?.Name ?? "No armor equipped"}");
-                        Console.WriteLine("Select wich item to unequip:");
-                        int unequipChoice;
-                        while(!int.TryParse(Console.ReadLine(), out unequipChoice) || unequipChoice < 1 || unequipChoice > 2)
-                        {
-                            Console.WriteLine("Select a correct item");
-                        }
-                        if (unequipChoice == 1)
-                        {
-                            if (character.EquippedSword != null)
+                            Console.WriteLine("Available items in your backpack:");
+                            for (int i = 0; i < character.Backpack.Items.Count; i++)
                             {
-                                character.UnequipItem(character.EquippedSword);
+                                Console.WriteLine($"{i + 1} - {character.Backpack.Items[i].Name}");
                             }
-                            else
-                            {
-                                Console.WriteLine("You have no weapon equipped already!");
-                            }
+                            Console.WriteLine("Select an item to equip.");
+                            int equipChoice = InputHelper.ReadInt(1, character.Backpack.Items.Count);
+                            character.EquipItem(character.Backpack.Items[equipChoice - 1]);
+                            Console.Clear();
+                            break;
                         }
                         else
                         {
-                            if (character.EquippedArmor != null)
-                            {
-                                character.UnequipItem(character.EquippedArmor);
-                            }
-                            else
-                            {
-                                Console.WriteLine("You have no armor equipped already!");
-                            }
-                        }
+                            Console.WriteLine("You have no items to equip!");
                             break;
-                    case 4:
-                        isInInventory = false;
-                        break;
-                }
+                        }
+
+
+                    case 3:
+                                // Unequip item
+                                Console.Clear();
+                                Console.WriteLine($"Equipped items:{Environment.NewLine}1 - Weapon: {character.EquippedSword?.Name ?? "No sword equipped"}{Environment.NewLine}2 - Armor: {character.EquippedArmor?.Name ?? "No armor equipped"}");
+                                Console.WriteLine("Select wich item to unequip:");
+                                int unequipChoice;
+                                while (!int.TryParse(Console.ReadLine(), out unequipChoice) || unequipChoice < 1 || unequipChoice > 2)
+                                {
+                                    Console.WriteLine("Select a correct item");
+                                }
+                                if (unequipChoice == 1)
+                                {
+                                    if (character.EquippedSword != null)
+                                    {
+                                        character.UnequipItem(character.EquippedSword);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("You have no weapon equipped already!");
+                                    }
+                                }
+                                else
+                                {
+                                    if (character.EquippedArmor != null)
+                                    {
+                                        character.UnequipItem(character.EquippedArmor);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("You have no armor equipped already!");
+                                    }
+                                }
+                                break;
+                            case 4:
+                                isInInventory = false;
+                                break;
+                            }
             }
             break;
         default:

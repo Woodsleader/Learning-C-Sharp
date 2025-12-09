@@ -42,43 +42,23 @@ namespace _16_RPG_Exercise
         // Equip items
         public void EquipItem(Item itemToEquip)
         {
-            bool equippableItems = false;
-            foreach (Item item in this.Backpack.Items)
+            if (itemToEquip is Sword newSword)
             {
-                if (item is Sword || item is Armor)
+                if (this.EquippedSword != null)
                 {
-                    equippableItems = true;
-                    break;
+                    this.Backpack.AddItem(EquippedSword);
                 }
+                this.EquippedSword = newSword;
+                this.Backpack.RemoveItem(itemToEquip);
             }
-            if (equippableItems == true)
+            else if (itemToEquip is Armor newArmor)
             {
-                if (itemToEquip is Sword newSword)
+                if (this.EquippedArmor != null)
                 {
-                    if (this.EquippedSword != null)
-                    {
-                        this.Backpack.AddItem(EquippedSword);
-                    }
-                    this.EquippedSword = newSword;
-                    this.Backpack.RemoveItem(itemToEquip);
+                    this.Backpack.AddItem(EquippedArmor);
                 }
-                else if (itemToEquip is Armor newArmor)
-                {
-                    if (this.EquippedArmor != null)
-                    {
-                        this.Backpack.AddItem(EquippedArmor);
-                    }
-                    this.EquippedArmor = newArmor;
-                    this.Backpack.RemoveItem(itemToEquip);
-                }
-                else
-                {
-                    Console.WriteLine("You cannot equip that item!");
-                }
-            }
-            else
-            {
-                Console.WriteLine("You don't have any items to equip");
+                this.EquippedArmor = newArmor;
+                this.Backpack.RemoveItem(itemToEquip);
             }
         }
         //Unequip item
