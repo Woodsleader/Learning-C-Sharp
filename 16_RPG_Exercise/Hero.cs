@@ -12,8 +12,22 @@ namespace _16_RPG_Exercise
         public int Level = 1;
         public int Experience = 0;
         public int Gold = 1000;
-        public int Attack = 10;
-        public int Armor = 5;
+        public int AttackHeroStat = 10;
+        public int AttackWithSword
+        {
+            get
+            {
+                return AttackHeroStat + (EquippedSword?.Damage ?? 0);
+            }
+        }
+        public int ArmorHeroStat = 5;
+        public int ArmorWithProtection
+        {
+            get
+            {
+                return ArmorHeroStat + (EquippedArmor?.ArmorStat ?? 0);
+            }
+        }
         public int Evasion = 0;
         public Sword? EquippedSword;
         public Armor? EquippedArmor;
@@ -94,7 +108,19 @@ namespace _16_RPG_Exercise
             }
 
         }
-        //Add/remove gold
+        // Check for enough gold
+        public bool EnoughGold(int price)
+        {
+            if (this.Gold > price)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        // Add/remove gold
         public void AddGold(int amount)
         {
             this.Gold += amount;
@@ -103,7 +129,7 @@ namespace _16_RPG_Exercise
         {
             this.Gold -= amount;
         }
-        //Add/remove health
+        // Add/remove health
         public void AddHealth(int amount)
         {
             this.Health += amount;

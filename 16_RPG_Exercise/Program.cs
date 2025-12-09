@@ -11,9 +11,9 @@ while (!finalBossDefeated)
 {
     Console.Clear();
     Console.WriteLine($"Where do you want to go?{Environment.NewLine}1 - Shop {Environment.NewLine}2 - Tavern {Environment.NewLine}3 - Dungeon{Environment.NewLine}4 - Inventory");
-    int userChoice = InputHelper.ReadInt(1,4);
+    int userChoiceMenu = InputHelper.ReadInt(1,4);
     Console.Clear();
-    switch (userChoice)
+    switch (userChoiceMenu)
     {
         case 1:
             // Shop entered
@@ -57,6 +57,19 @@ while (!finalBossDefeated)
             break;
         case 2:
             Console.WriteLine("You have entered the tavern.");
+            bool isInTavern = true;
+            while (isInTavern)
+            {
+                Console.WriteLine($"What do you want to do?{Environment.NewLine}1 - Sleep (Fully heals for 100 gold){Environment.NewLine}2 - Leave");
+                int userChoiceTavern = InputHelper.ReadInt(1, 2);
+                if (userChoiceTavern == 1)
+                {
+                    if (character.EnoughGold(100) == true)
+                    {
+                        character.AddHealth(999);
+                    }
+                }
+            }
             break;
         case 3:
             Console.WriteLine("You are outside the dungeon.");
