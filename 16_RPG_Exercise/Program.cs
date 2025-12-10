@@ -11,7 +11,7 @@ while (!finalBossDefeated)
 {
     Console.Clear();
     Console.WriteLine($"Where do you want to go?{Environment.NewLine}1 - Shop {Environment.NewLine}2 - Tavern {Environment.NewLine}3 - Dungeon{Environment.NewLine}4 - Inventory");
-    int userChoiceMenu = InputHelper.ReadInt(1,4);
+    int userChoiceMenu = InputHelper.ReadInt(1, 4);
     Console.Clear();
     switch (userChoiceMenu)
     {
@@ -34,7 +34,7 @@ while (!finalBossDefeated)
                             Console.WriteLine($"{i + 1} - {shop.shopItems.Items[i].Name} {shop.shopItems.Items[i].Price} gold coins.");
                         }
                         Console.WriteLine($"{Environment.NewLine}");
-                        int itemToBuy = InputHelper.ReadInt(1,shop.shopItems.Items.Count);
+                        int itemToBuy = InputHelper.ReadInt(1, shop.shopItems.Items.Count);
                         Console.Clear();
                         shop.CharacterBuys(shop.shopItems.Items[itemToBuy - 1], character);
                         break;
@@ -116,46 +116,27 @@ while (!finalBossDefeated)
 
 
                     case 3:
-                                // Unequip item
-                                Console.Clear();
-                                Console.WriteLine($"Equipped items:{Environment.NewLine}1 - Weapon: {character.EquippedSword?.Name ?? "No sword equipped"}{Environment.NewLine}2 - Armor: {character.EquippedArmor?.Name ?? "No armor equipped"}");
-                                Console.WriteLine("Select wich item to unequip:");
-                                int unequipChoice;
-                                while (!int.TryParse(Console.ReadLine(), out unequipChoice) || unequipChoice < 1 || unequipChoice > 2)
-                                {
-                                    Console.WriteLine("Select a correct item");
-                                }
-                                if (unequipChoice == 1)
-                                {
-                                    if (character.EquippedSword != null)
-                                    {
-                                        character.UnequipItem(character.EquippedSword);
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("You have no weapon equipped already!");
-                                    }
-                                }
-                                else
-                                {
-                                    if (character.EquippedArmor != null)
-                                    {
-                                        character.UnequipItem(character.EquippedArmor);
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("You have no armor equipped already!");
-                                    }
-                                }
-                                break;
-                            case 4:
-                                isInInventory = false;
-                                break;
-                            }
+                        // Unequip item
+                        Console.Clear();
+                        Console.WriteLine($"Equipped items:{Environment.NewLine}1 - Weapon: {character.EquippedSword?.Name ?? "No sword equipped"}{Environment.NewLine}2 - Armor: {character.EquippedArmor?.Name ?? "No armor equipped"}");
+                        Console.WriteLine("Select wich item to unequip:");
+                        int unequipChoice = InputHelper.ReadInt(1, 2);
+                        if (unequipChoice == 1)
+                        {
+                            character.UnequipItem(character.EquippedSword);
+                        }
+                        else
+                        {
+                            character.UnequipItem(character.EquippedArmor);
+                        }
+                        break;
+                    case 4:
+                        break;
+                    case 5:
+                        isInInventory = false;
+                        break;
+                }
             }
-            break;
-        default:
-            Console.WriteLine("Type a number between 1 and 3");
             break;
     }
 }

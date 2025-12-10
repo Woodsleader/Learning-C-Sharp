@@ -8,7 +8,27 @@ namespace _16_RPG_Exercise
     public class Hero
     {
         public string Name;
-        public int Health = 100;
+        private int _health = 100;
+        public int Health
+        {
+            get { return  _health; }
+            set
+            {
+                if (value > MaxHealth)
+                {
+                    _health = MaxHealth;
+                }
+                else if (value < 0)
+                {
+                    _health = 0;
+                }
+                else
+                {
+                    _health = value;
+                }
+            }
+        }
+        public int MaxHealth => 100 * (Level * 10);
         public int Level = 1;
         public int Experience = 0;
         public int Gold = 1000;
