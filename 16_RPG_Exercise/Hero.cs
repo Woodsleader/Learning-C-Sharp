@@ -61,39 +61,49 @@ namespace _16_RPG_Exercise
             Armor leatherArmor = new Armor("Leather armor", 10, 3);
             this.EquippedArmor = leatherArmor;
         }
-        // See if there are equippable items
-        public bool HasEquippableItems()
-        {
-            foreach (Item item in this.Backpack.Items)
-            {
-                if (item is Sword || item is Armor)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
         // Equip items
-        public void EquipItem(Item itemToEquip)
+        public void EquipItem()
         {
-            if (itemToEquip is Sword newSword)
+            List<Item> equipable = new List<Item>();
+            foreach (Item i in this.Backpack.Items)
             {
-                if (this.EquippedSword != null)
+                if (i is Sword || i is Armor)
                 {
-                    this.Backpack.AddItem(EquippedSword);
+                    equipable.Add(i);
                 }
-                this.EquippedSword = newSword;
-                this.Backpack.RemoveItem(itemToEquip);
             }
-            else if (itemToEquip is Armor newArmor)
+            if (equipable.Count > 0)
             {
-                if (this.EquippedArmor != null)
+                Console.WriteLine("Equipable items:");
+                for (int i = 0; i < equipable.Count; i++)
                 {
-                    this.Backpack.AddItem(EquippedArmor);
+                    Console.WriteLine($"{i + 1} - {equipable[i].Name}");
                 }
-                this.EquippedArmor = newArmor;
-                this.Backpack.RemoveItem(itemToEquip);
+                int userChoice = InputHelper.ReadInt(1, equipable.Count) - 1;
+                if (equipable[userChoice] is Sword newSword)
+                {
+                    if (this.EquippedSword != null)
+                    {
+                        this.Backpack.AddItem(EquippedSword);
+                    }
+                    this.EquippedSword = newSword;
+                    this.Backpack.RemoveItem(newSword);
+                }
+                else if (equipable[userChoice] is Armor newArmor)
+                {
+                    if (this.EquippedArmor != null)
+                    {
+                        this.Backpack.AddItem(this.EquippedArmor);
+                    }
+                    this.EquippedArmor = newArmor;
+                    this.Backpack.RemoveItem(newArmor);
+                }
             }
+            else
+            {
+                Console.WriteLine("You have nothing to equip!");
+            }
+            Console.Clear();
         }
         //Unequip item
         public void UnequipItem(Item itemToUnequip)

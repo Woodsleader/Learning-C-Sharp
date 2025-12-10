@@ -13,6 +13,7 @@ namespace _16_RPG_Exercise
             {
                 Console.WriteLine("Sorry, incorrect number.");
             }
+            Console.Clear();
             return userInput;
         }
         public static string ReadName(string name)
@@ -24,6 +25,7 @@ namespace _16_RPG_Exercise
                 name = Console.ReadLine();
             }
             name = char.ToUpper(name[0]) + name.Substring(1).ToLower();
+            Console.Clear();
             return name;
         }
     }

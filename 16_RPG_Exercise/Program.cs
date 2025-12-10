@@ -95,26 +95,8 @@ while (!finalBossDefeated)
                     case 2:
                         // Equip item
                         Console.Clear();
-                        if (character.HasEquippableItems() == true)
-                        {
-                            Console.WriteLine("Available items in your backpack:");
-                            for (int i = 0; i < character.Backpack.Items.Count; i++)
-                            {
-                                Console.WriteLine($"{i + 1} - {character.Backpack.Items[i].Name}");
-                            }
-                            Console.WriteLine("Select an item to equip.");
-                            int equipChoice = InputHelper.ReadInt(1, character.Backpack.Items.Count);
-                            character.EquipItem(character.Backpack.Items[equipChoice - 1]);
-                            Console.Clear();
-                            break;
-                        }
-                        else
-                        {
-                            Console.WriteLine("You have no items to equip!");
-                            break;
-                        }
-
-
+                        character.EquipItem();
+                        break;
                     case 3:
                         // Unequip item
                         Console.Clear();
@@ -129,6 +111,7 @@ while (!finalBossDefeated)
                         {
                             character.UnequipItem(character.EquippedArmor);
                         }
+                        Console.Clear();
                         break;
                     case 4:
                         break;
