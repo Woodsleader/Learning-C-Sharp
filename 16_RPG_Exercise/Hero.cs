@@ -136,7 +136,13 @@ namespace _16_RPG_Exercise
             {
                 Console.WriteLine("This error is impossible to get, how did you manage to do it?");
             }
-
+            Console.Clear();
+        }
+        //Display equipped items
+        public void EquippedItems()
+        {
+            Console.WriteLine($"1 - Sword: {this.EquippedSword?.Name ?? "Empty"}");
+            Console.WriteLine($"2 - Armor: {this.EquippedArmor?.Name ?? "Empty"}");
         }
         // Check for enough gold
         public bool EnoughGold(int price)

@@ -9,10 +9,8 @@ character.Name = InputHelper.ReadName(Console.ReadLine());
 
 while (!finalBossDefeated)
 {
-    Console.Clear();
     Console.WriteLine($"Where do you want to go?{Environment.NewLine}1 - Shop {Environment.NewLine}2 - Tavern {Environment.NewLine}3 - Dungeon{Environment.NewLine}4 - Inventory");
     int userChoiceMenu = InputHelper.ReadInt(1, 4);
-    Console.Clear();
     switch (userChoiceMenu)
     {
         case 1:
@@ -23,7 +21,6 @@ while (!finalBossDefeated)
             {
                 Console.WriteLine($"What do you want to do?{Environment.NewLine}1 - Buy.{Environment.NewLine}2 - Sell.{Environment.NewLine}3 - Leave.");
                 int userChoiceShop = InputHelper.ReadInt(1, 3);
-                Console.Clear();
                 switch (userChoiceShop)
                 {
                     case 1:
@@ -35,7 +32,6 @@ while (!finalBossDefeated)
                         }
                         Console.WriteLine($"{Environment.NewLine}");
                         int itemToBuy = InputHelper.ReadInt(1, shop.shopItems.Items.Count);
-                        Console.Clear();
                         shop.CharacterBuys(shop.shopItems.Items[itemToBuy - 1], character);
                         break;
                     case 2:
@@ -79,18 +75,12 @@ while (!finalBossDefeated)
             while (isInInventory)
             {
                 Console.WriteLine($"You're in your inventory.{Environment.NewLine}1 - View equipped items{Environment.NewLine}2 - Equip items{Environment.NewLine}3 - Unequip item{Environment.NewLine}4 - View stats{Environment.NewLine}5 - Leave");
-                int userInventory;
-                while (!int.TryParse(Console.ReadLine(), out userInventory) || userInventory < 1 || userInventory > 5)
-                {
-                    Console.WriteLine("Write a valid number.");
-                }
+                int userInventory = InputHelper.ReadInt(1, 5);
                 switch (userInventory)
                 {
                     case 1:
                         // See equipped items
-                        Console.Clear();
-                        Console.WriteLine($"Sword: {character.EquippedSword?.Name ?? "No weapon equipped"}");
-                        Console.WriteLine($"Armor: {character.EquippedArmor?.Name ?? "No armor equipped"}");
+                        character.EquippedItems();
                         break;
                     case 2:
                         // Equip item
@@ -100,7 +90,7 @@ while (!finalBossDefeated)
                     case 3:
                         // Unequip item
                         Console.Clear();
-                        Console.WriteLine($"Equipped items:{Environment.NewLine}1 - Weapon: {character.EquippedSword?.Name ?? "No sword equipped"}{Environment.NewLine}2 - Armor: {character.EquippedArmor?.Name ?? "No armor equipped"}");
+                        character.EquippedItems();
                         Console.WriteLine("Select wich item to unequip:");
                         int unequipChoice = InputHelper.ReadInt(1, 2);
                         if (unequipChoice == 1)
