@@ -106,37 +106,29 @@ namespace _16_RPG_Exercise
             Console.Clear();
         }
         //Unequip item
-        public void UnequipItem(Item itemToUnequip)
+        public void UnequipItem()
         {
-            if (itemToUnequip is Sword newSword)
+            if (EquippedSword == null && EquippedArmor == null)
             {
-                if (this.EquippedSword != null)
-                {
-                    this.EquippedSword = null;
-                    this.Backpack.AddItem(itemToUnequip);
-                }
-                else
-                {
-                    Console.WriteLine("You don't have any sword equipped!");
-                }
-            }
-            else if (itemToUnequip is Armor newArmor)
-            {
-                if (this.EquippedArmor != null)
-                {
-                    this.EquippedArmor = null;
-                    this.Backpack.AddItem(itemToUnequip);
-                }
-                else
-                {
-                    Console.WriteLine("You don't have any armor equipped!");
-                }
+                Console.WriteLine("You don't have anything equipped!");
+                return;
             }
             else
             {
-                Console.WriteLine("This error is impossible to get, how did you manage to do it?");
+                EquippedItems();
+                Console.WriteLine("Wich item do you want to unequip?");
+                int userChoice = InputHelper.ReadInt(1, 2);
+                if (userChoice == 1 || this.EquippedSword != null)
+                {
+                    Backpack.AddItem(this.EquippedSword);
+                    this.EquippedSword = null;
+                }
+                else if (userChoice == 2 || this.EquippedArmor != null)
+                {
+                    Backpack.AddItem(this.EquippedArmor);
+                    this.EquippedArmor = null;
+                }
             }
-            Console.Clear();
         }
         //Display equipped items
         public void EquippedItems()

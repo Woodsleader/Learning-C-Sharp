@@ -26,13 +26,13 @@ while (!finalBossDefeated)
                     case 1:
                         // Buy item
                         Console.WriteLine("Available items:");
-                        for (int i = 0; i < shop.shopItems.Items.Count; i++)
+                        for (int i = 0; i < shop.ShopItems.Items.Count; i++)
                         {
-                            Console.WriteLine($"{i + 1} - {shop.shopItems.Items[i].Name} {shop.shopItems.Items[i].Price} gold coins.");
+                            Console.WriteLine($"{i + 1} - {shop.ShopItems.Items[i].Name} {shop.ShopItems.Items[i].Price} gold coins.");
                         }
                         Console.WriteLine($"{Environment.NewLine}");
-                        int itemToBuy = InputHelper.ReadInt(1, shop.shopItems.Items.Count);
-                        shop.CharacterBuys(shop.shopItems.Items[itemToBuy - 1], character);
+                        int itemToBuy = InputHelper.ReadInt(1, shop.ShopItems.Items.Count);
+                        shop.CharacterBuys(shop.ShopItems.Items[itemToBuy - 1], character);
                         break;
                     case 2:
                         // Sell item
@@ -89,19 +89,7 @@ while (!finalBossDefeated)
                         break;
                     case 3:
                         // Unequip item
-                        Console.Clear();
-                        character.EquippedItems();
-                        Console.WriteLine("Select wich item to unequip:");
-                        int unequipChoice = InputHelper.ReadInt(1, 2);
-                        if (unequipChoice == 1)
-                        {
-                            character.UnequipItem(character.EquippedSword);
-                        }
-                        else
-                        {
-                            character.UnequipItem(character.EquippedArmor);
-                        }
-                        Console.Clear();
+                        character.UnequipItem();
                         break;
                     case 4:
                         break;

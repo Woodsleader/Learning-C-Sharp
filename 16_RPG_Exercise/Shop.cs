@@ -7,44 +7,34 @@ namespace _16_RPG_Exercise
 {
     public class Shop
     {
-        public Inventory shopItems = new Inventory();
+        public Inventory ShopItems = new Inventory();
         public Shop()
         {
             Sword steelSword = new Sword("Steel sword", 100, 25);
             Sword dragonSlayer = new Sword("Dragon slayer", 1000, 50);
-            shopItems.AddItem(steelSword);
-            shopItems.AddItem(dragonSlayer);
+            ShopItems.AddItem(steelSword);
+            ShopItems.AddItem(dragonSlayer);
             Armor chainmail = new Armor("Chainmail", 100, 10);
             Armor plateArmor = new Armor("Plate armor", 1000, 25);
-            shopItems.AddItem(chainmail);
-            shopItems.AddItem(plateArmor);
+            ShopItems.AddItem(chainmail);
+            ShopItems.AddItem(plateArmor);
             HealthPotion smallPotion = new HealthPotion("Small healing potion", 50, 25);
             HealthPotion largePotion = new HealthPotion("Large healing potion", 100, 50);
-            shopItems.AddItem(smallPotion);
-            shopItems.AddItem(largePotion);
+            ShopItems.AddItem(smallPotion);
+            ShopItems.AddItem(largePotion);
         }
-
-        public void CharacterBuys(Item itemToBuy, Hero character)
+        public void ShopBuy(Hero character)
         {
-            if (itemToBuy.Price <= character.Gold)
+            Console.WriteLine("Available items:");
+            for (int i = 0; i < this.ShopItems.Items.Count; i++)
             {
-                character.RemoveGold(itemToBuy.Price);
-                character.Backpack.AddItem(itemToBuy);
-                if (itemToBuy is not HealthPotion)
-                {
-                    this.shopItems.RemoveItem(itemToBuy);
-                }
+                Console.WriteLine($"{i + 1} - {this.ShopItems.Items[i].Name}: {this.ShopItems.Items[i].Price} gold coins");
+                if (i == this.ShopItems)
             }
-            else
-            {
-                Console.WriteLine($"You need {itemToBuy.Price - character.Gold} gold more to affort the item!");
-            }
-        }
-        public void CharacterSells(Item itemToSell, Hero character)
-        {
-            this.shopItems.AddItem(itemToSell);
-            character.AddGold(itemToSell.SellingPrice);
-            character.Backpack.RemoveItem(itemToSell);
+            Console.WriteLine("What item do you want to buy?");
+            int userChoice = InputHelper.ReadInt(1, this.ShopItems.Items.Count);
+            character.Backpack.AddItem(this.ShopItems.Items[userChoice]);
+            this.ShopItems.RemoveItem(this.ShopItems.Items[userChoice]);
         }
     }
 }
