@@ -25,25 +25,10 @@ while (!finalBossDefeated)
                 {
                     case 1:
                         // Buy item
-                        Console.WriteLine("Available items:");
-                        for (int i = 0; i < shop.ShopItems.Items.Count; i++)
-                        {
-                            Console.WriteLine($"{i + 1} - {shop.ShopItems.Items[i].Name} {shop.ShopItems.Items[i].Price} gold coins.");
-                        }
-                        Console.WriteLine($"{Environment.NewLine}");
-                        int itemToBuy = InputHelper.ReadInt(1, shop.ShopItems.Items.Count);
-                        shop.CharacterBuys(shop.ShopItems.Items[itemToBuy - 1], character);
+                        shop.ShopBuy(character);
                         break;
                     case 2:
-                        // Sell item
-                        Console.WriteLine("Select wich item to sell:");
-                        for (int i = 0; i < character.Backpack.Items.Count; i++)
-                        {
-                            Console.WriteLine($"{i + 1} - {character.Backpack.Items[i].Name} {character.Backpack.Items[i].SellingPrice} gold coins.");
-                        }
-                        int itemToSell = InputHelper.ReadInt(1, character.Backpack.Items.Count);
-                        shop.CharacterSells(character.Backpack.Items[itemToSell - 1], character);
-                        Console.Clear();
+                        // Sell items
                         break;
                     case 3:
                         isInShop = false;

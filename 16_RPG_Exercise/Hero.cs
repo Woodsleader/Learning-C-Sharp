@@ -139,7 +139,7 @@ namespace _16_RPG_Exercise
         // Check for enough gold
         public bool EnoughGold(int price)
         {
-            if (this.Gold > price)
+            if (this.Gold >= price)
             {
                 return true;
             }

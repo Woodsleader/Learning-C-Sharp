@@ -29,12 +29,26 @@ namespace _16_RPG_Exercise
             for (int i = 0; i < this.ShopItems.Items.Count; i++)
             {
                 Console.WriteLine($"{i + 1} - {this.ShopItems.Items[i].Name}: {this.ShopItems.Items[i].Price} gold coins");
-                if (i == this.ShopItems)
+                if (i == this.ShopItems.Items.Count - 1)
+                {
+                    Console.WriteLine($"{i + 2} - Leave");
+                }
             }
             Console.WriteLine("What item do you want to buy?");
-            int userChoice = InputHelper.ReadInt(1, this.ShopItems.Items.Count);
-            character.Backpack.AddItem(this.ShopItems.Items[userChoice]);
-            this.ShopItems.RemoveItem(this.ShopItems.Items[userChoice]);
+            int userChoice = InputHelper.ReadInt(1, this.ShopItems.Items.Count + 1) - 1;
+            if (userChoice == this.ShopItems.Items.Count + 2)
+            {
+                return;
+            }
+            if (character.EnoughGold(this.ShopItems.Items[userChoice].Price) == true)
+            {
+                character.Backpack.AddItem(this.ShopItems.Items[userChoice]);
+                this.ShopItems.RemoveItem(this.ShopItems.Items[userChoice]);
+            }
+            else
+            {
+                Console.WriteLine($"You don't have enough gold! {this.ShopItems.Items[userChoice].Price - character.Gold} gold pieces missing.");
+            }
         }
     }
 }
