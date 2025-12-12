@@ -31,7 +31,12 @@ namespace _16_RPG_Exercise
         public int MaxHealth => 100 * (Level * 10);
         public int Level = 1;
         public int Experience = 0;
-        public int Gold = 1000;
+        private int _gold = 1000;
+        public int Gold
+        {
+            get { return _gold; }
+            set { _gold = value; }
+        }
         public int AttackHeroStat = 10;
         public int AttackWithSword
         {

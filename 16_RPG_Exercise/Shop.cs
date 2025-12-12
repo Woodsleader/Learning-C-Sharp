@@ -23,6 +23,7 @@ namespace _16_RPG_Exercise
             ShopItems.AddItem(smallPotion);
             ShopItems.AddItem(largePotion);
         }
+        //Buy items
         public void ShopBuy(Hero character)
         {
             Console.WriteLine("Available items:");
@@ -36,19 +37,29 @@ namespace _16_RPG_Exercise
             }
             Console.WriteLine("What item do you want to buy?");
             int userChoice = InputHelper.ReadInt(1, this.ShopItems.Items.Count + 1) - 1;
-            if (userChoice == this.ShopItems.Items.Count + 2)
+            if (userChoice == this.ShopItems.Items.Count)
             {
                 return;
             }
             if (character.EnoughGold(this.ShopItems.Items[userChoice].Price) == true)
             {
+                if (this.ShopItems.Items[userChoice] is Sword || this.ShopItems.Items[userChoice] is Armor)
+                {
+                    this.ShopItems.RemoveItem(this.ShopItems.Items[userChoice]);
+                }
                 character.Backpack.AddItem(this.ShopItems.Items[userChoice]);
-                this.ShopItems.RemoveItem(this.ShopItems.Items[userChoice]);
+                character.RemoveGold(this.ShopItems.Items[userChoice].Price);
             }
             else
             {
                 Console.WriteLine($"You don't have enough gold! {this.ShopItems.Items[userChoice].Price - character.Gold} gold pieces missing.");
             }
+        }
+        
+        //Sell items
+        public void ShopSell(Hero character)
+        {
+            List<Item> sellable = new List<Item>();
         }
     }
 }
