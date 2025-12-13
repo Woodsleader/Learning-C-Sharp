@@ -59,7 +59,6 @@ namespace _16_RPG_Exercise
         //Sell items
         public void ShopSell(Hero character)
         {
-            List<Item> sellable = new List<Item>();
         }
     }
 }
