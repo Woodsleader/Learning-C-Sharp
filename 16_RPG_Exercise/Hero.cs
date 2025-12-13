@@ -61,7 +61,7 @@ namespace _16_RPG_Exercise
 
         public Hero()
         {
-            Sword rustySword = new Sword("Rusty sword", 0, 5);
+            Sword rustySword = new Sword("Rusty sword", 10, 5);
             this.EquippedSword = rustySword;
             Armor leatherArmor = new Armor("Leather armor", 10, 3);
             this.EquippedArmor = leatherArmor;

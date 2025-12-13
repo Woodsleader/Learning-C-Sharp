@@ -6,12 +6,10 @@ namespace _16_RPG_Exercise
 {
     public class Sword : Item
     {
-        public int Damage;
+        public int Damage { get; set; }
 
-        public Sword(string name, int price, int damage)
+        public Sword(string name, int price, int damage) : base(name, price)
         {
-            this.Name = name;
-            this.Price = price;
             this.Damage = damage;
         }
     }

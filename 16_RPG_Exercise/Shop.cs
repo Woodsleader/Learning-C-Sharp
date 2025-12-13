@@ -30,25 +30,26 @@ namespace _16_RPG_Exercise
             for (int i = 0; i < this.ShopItems.Items.Count; i++)
             {
                 Console.WriteLine($"{i + 1} - {this.ShopItems.Items[i].Name}: {this.ShopItems.Items[i].Price} gold coins");
-                if (i == this.ShopItems.Items.Count - 1)
-                {
-                    Console.WriteLine($"{i + 2} - Leave");
-                }
             }
+            Console.WriteLine($"{this.ShopItems.Items.Count + 1} - Leave");
             Console.WriteLine("What item do you want to buy?");
             int userChoice = InputHelper.ReadInt(1, this.ShopItems.Items.Count + 1) - 1;
             if (userChoice == this.ShopItems.Items.Count)
             {
                 return;
             }
-            if (character.EnoughGold(this.ShopItems.Items[userChoice].Price) == true)
+            if (character.EnoughGold(this.ShopItems.Items[userChoice].Price))
             {
+                if (this.ShopItems.Items[userChoice] is HealthPotion)
+                {
+                    if
+                }
+                character.Backpack.AddItem(this.ShopItems.Items[userChoice]);
+                character.RemoveGold(this.ShopItems.Items[userChoice].Price);
                 if (this.ShopItems.Items[userChoice] is Sword || this.ShopItems.Items[userChoice] is Armor)
                 {
                     this.ShopItems.RemoveItem(this.ShopItems.Items[userChoice]);
                 }
-                character.Backpack.AddItem(this.ShopItems.Items[userChoice]);
-                character.RemoveGold(this.ShopItems.Items[userChoice].Price);
             }
             else
             {
@@ -59,26 +60,29 @@ namespace _16_RPG_Exercise
         //Sell items
         public void ShopSell(Hero character)
         {
-            Console.WriteLine("Choose wich item to sell: ");
-            for (int i = 0; i < character.Backpack.Items.Count; i++)
+            if (character.Backpack.Items.Count >= 1)
             {
-                Console.WriteLine($"{i + 1} - {character.Backpack.Items[i]} {character.Backpack.Items[i].SellingPrice} gold coins.");
-                if(i == character.Backpack.Items.Count - 1)
+                Console.WriteLine("Choose wich item to sell: ");
+                for (int i = 0; i < character.Backpack.Items.Count; i++)
                 {
-                    Console.WriteLine($"{i + 2} - Leave.");
+                    Console.WriteLine($"{i + 1} - {character.Backpack.Items[i].Name} {character.Backpack.Items[i].SellingPrice} gold coins.");
                 }
+                Console.WriteLine($"{character.Backpack.Items.Count + 1} - Leave.");
+                int userChoice = InputHelper.ReadInt(1, character.Backpack.Items.Count + 1) - 1;
+                if (userChoice == character.Backpack.Items.Count)
+                {
+                    return;
+                }
+                this.ShopItems.AddItem(character.Backpack.Items[userChoice]);
+                character.AddGold(character.Backpack.Items[userChoice].SellingPrice);
+                if (character.Backpack.Items[userChoice] is Sword || character.Backpack.Items[userChoice] is Armor)
+                character.Backpack.RemoveItem(character.Backpack.Items[userChoice]);
             }
-            int userChoice = InputHelper.ReadInt(1, character.Backpack.Items.Count + 1);
-            if (userChoice == character.Backpack.Items.Count + 1)
+            else
             {
+                Console.WriteLine("You don't have anything to sell!");
                 return;
             }
-            if (character.Backpack.Items[userChoice - 1] is Sword || character.Backpack.Items[userChoice - 1] is Armor)
-            {
-                this.ShopItems.AddItem(character.Backpack.Items[userChoice - 1]);
-            }
-            character.Backpack.RemoveItem(character.Backpack.Items[userChoice - 1]);
-            character.AddGold(character.Backpack.Items[userChoice - 1].SellingPrice);
         }
     }
 }

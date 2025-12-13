@@ -29,6 +29,7 @@ while (!finalBossDefeated)
                         break;
                     case 2:
                         // Sell items
+                        shop.ShopSell(character);
                         break;
                     case 3:
                         isInShop = false;

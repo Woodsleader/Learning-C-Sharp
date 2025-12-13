@@ -6,12 +6,10 @@ namespace _16_RPG_Exercise
 {
     public class Armor : Item
     {
-        public int ArmorStat;
+        public int ArmorStat { set; get; }
 
-        public Armor(string name, int price, int armorStat)
+        public Armor(string name, int price, int armorStat) : base(name, price)
         {
-            this.Name = name;
-            this.Price = price;
             this.ArmorStat = armorStat;
         }
     }
