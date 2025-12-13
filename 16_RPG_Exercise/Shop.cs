@@ -59,6 +59,26 @@ namespace _16_RPG_Exercise
         //Sell items
         public void ShopSell(Hero character)
         {
+            Console.WriteLine("Choose wich item to sell: ");
+            for (int i = 0; i < character.Backpack.Items.Count; i++)
+            {
+                Console.WriteLine($"{i + 1} - {character.Backpack.Items[i]} {character.Backpack.Items[i].SellingPrice} gold coins.");
+                if(i == character.Backpack.Items.Count - 1)
+                {
+                    Console.WriteLine($"{i + 2} - Leave.");
+                }
+            }
+            int userChoice = InputHelper.ReadInt(1, character.Backpack.Items.Count + 1);
+            if (userChoice == character.Backpack.Items.Count + 1)
+            {
+                return;
+            }
+            if (character.Backpack.Items[userChoice - 1] is Sword || character.Backpack.Items[userChoice - 1] is Armor)
+            {
+                this.ShopItems.AddItem(character.Backpack.Items[userChoice - 1]);
+            }
+            character.Backpack.RemoveItem(character.Backpack.Items[userChoice - 1]);
+            character.AddGold(character.Backpack.Items[userChoice - 1].SellingPrice);
         }
     }
 }
