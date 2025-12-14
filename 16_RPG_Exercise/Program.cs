@@ -1,4 +1,5 @@
 ﻿using _16_RPG_Exercise;
+using System.ComponentModel.Design;
 
 bool finalBossDefeated = false;
 Hero character = new Hero();
@@ -33,7 +34,7 @@ while (!finalBossDefeated)
                         break;
                     case 3:
                         isInShop = false;
-                        break; 
+                        break;
                 }
             }
             break;

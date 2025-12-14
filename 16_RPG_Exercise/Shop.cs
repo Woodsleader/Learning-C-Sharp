@@ -38,17 +38,18 @@ namespace _16_RPG_Exercise
             {
                 return;
             }
-            if (character.EnoughGold(this.ShopItems.Items[userChoice].Price))
+            Item selectedItem = this.ShopItems.Items[userChoice];
+            if (character.EnoughGold(selectedItem.Price))
             {
-                if (this.ShopItems.Items[userChoice] is HealthPotion)
+                character.RemoveGold(selectedItem.Price);
+                if (selectedItem is HealthPotion potion)
                 {
-                    if
+                    character.Backpack.AddItem(potion.Clone());
                 }
-                character.Backpack.AddItem(this.ShopItems.Items[userChoice]);
-                character.RemoveGold(this.ShopItems.Items[userChoice].Price);
-                if (this.ShopItems.Items[userChoice] is Sword || this.ShopItems.Items[userChoice] is Armor)
+                else
                 {
-                    this.ShopItems.RemoveItem(this.ShopItems.Items[userChoice]);
+                    character.Backpack.AddItem(selectedItem);
+                    this.ShopItems.RemoveItem(selectedItem);
                 }
             }
             else
@@ -73,10 +74,10 @@ namespace _16_RPG_Exercise
                 {
                     return;
                 }
-                this.ShopItems.AddItem(character.Backpack.Items[userChoice]);
-                character.AddGold(character.Backpack.Items[userChoice].SellingPrice);
-                if (character.Backpack.Items[userChoice] is Sword || character.Backpack.Items[userChoice] is Armor)
-                character.Backpack.RemoveItem(character.Backpack.Items[userChoice]);
+                Item selectedItem = character.Backpack.Items[userChoice];
+                this.ShopItems.AddItem(selectedItem);
+                character.AddGold(selectedItem.SellingPrice);
+                character.Backpack.RemoveItem(selectedItem);
             }
             else
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Reflection.PortableExecutable;
 using System.Text;
 
@@ -7,7 +8,7 @@ namespace _16_RPG_Exercise
 {
     public class Hero
     {
-        public string Name;
+        public string Name { set; get; }
         private int _health = 100;
         public int Health
         {
@@ -28,15 +29,11 @@ namespace _16_RPG_Exercise
                 }
             }
         }
-        public int MaxHealth => 100 * (Level * 10);
+        public int MaxHealth => 100 + (Level * 10);
         public int Level = 1;
         public int Experience = 0;
-        private int _gold = 1000;
-        public int Gold
-        {
-            get { return _gold; }
-            set { _gold = value; }
-        }
+        public int Gold = 0;
+
         public int AttackHeroStat = 10;
         public int AttackWithSword
         {
@@ -108,6 +105,7 @@ namespace _16_RPG_Exercise
             {
                 Console.WriteLine("You have nothing to equip!");
             }
+            Console.ReadKey();
             Console.Clear();
         }
         //Unequip item
@@ -123,15 +121,23 @@ namespace _16_RPG_Exercise
                 EquippedItems();
                 Console.WriteLine("Wich item do you want to unequip?");
                 int userChoice = InputHelper.ReadInt(1, 2);
-                if (userChoice == 1 || this.EquippedSword != null)
+                if (userChoice == 1 && this.EquippedSword != null)
                 {
                     Backpack.AddItem(this.EquippedSword);
                     this.EquippedSword = null;
                 }
-                else if (userChoice == 2 || this.EquippedArmor != null)
+                else
+                {
+                    Console.WriteLine("You don't have a sword equipped!");
+                }
+                if (userChoice == 2 && this.EquippedArmor != null)
                 {
                     Backpack.AddItem(this.EquippedArmor);
                     this.EquippedArmor = null;
+                }
+                else
+                {
+                    Console.WriteLine("You don't have an armor equipped!");
                 }
             }
         }
@@ -144,14 +150,7 @@ namespace _16_RPG_Exercise
         // Check for enough gold
         public bool EnoughGold(int price)
         {
-            if (this.Gold >= price)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return this.Gold >= price;
         }
         // Add/remove gold
         public void AddGold(int amount)
