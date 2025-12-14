@@ -47,9 +47,15 @@ while (!finalBossDefeated)
                 int userChoiceTavern = InputHelper.ReadInt(1, 2);
                 if (userChoiceTavern == 1)
                 {
-                    if (character.EnoughGold(100) == true)
+                    if (character.EnoughGold(100))
                     {
-                        character.AddHealth(999);
+                        character.RemoveGold(100);
+                        character.AddHealth(character.MaxHealth);
+                    }
+                    else
+                    {
+                        Console.WriteLine("You don't have enough gold!");
+                        break;
                     }
                 }
             }
