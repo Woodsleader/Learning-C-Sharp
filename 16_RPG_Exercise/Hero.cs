@@ -12,7 +12,7 @@ namespace _16_RPG_Exercise
         private int _health = 100;
         public int Health
         {
-            get { return  _health; }
+            get { return _health; }
             set
             {
                 if (value > MaxHealth)
@@ -32,6 +32,7 @@ namespace _16_RPG_Exercise
         public int MaxHealth => 100 + (Level * 10);
         public int Level = 1;
         public int Experience = 0;
+        public int MaxExperience => 100 + (25 * Level);
         public int Gold = 0;
 
         public int AttackHeroStat = 10;
@@ -59,15 +60,15 @@ namespace _16_RPG_Exercise
         public Hero()
         {
             Sword rustySword = new Sword("Rusty sword", 10, 5);
-            this.EquippedSword = rustySword;
+            EquippedSword = rustySword;
             Armor leatherArmor = new Armor("Leather armor", 10, 3);
-            this.EquippedArmor = leatherArmor;
+            EquippedArmor = leatherArmor;
         }
         // Equip items
         public void EquipItem()
         {
             List<Item> equipable = new List<Item>();
-            foreach (Item i in this.Backpack.Items)
+            foreach (Item i in Backpack.Items)
             {
                 if (i is Sword || i is Armor)
                 {
@@ -84,27 +85,25 @@ namespace _16_RPG_Exercise
                 int userChoice = InputHelper.ReadInt(1, equipable.Count) - 1;
                 if (equipable[userChoice] is Sword newSword)
                 {
-                    if (this.EquippedSword != null)
+                    if (EquippedSword != null)
                     {
-                        this.Backpack.AddItem(EquippedSword);
+                        Backpack.AddItem(EquippedSword);
                     }
-                    this.EquippedSword = newSword;
-                    this.Backpack.RemoveItem(newSword);
+                    EquippedSword = newSword;
+                    Backpack.RemoveItem(newSword);
                 }
                 else if (equipable[userChoice] is Armor newArmor)
                 {
-                    if (this.EquippedArmor != null)
+                    if (EquippedArmor != null)
                     {
-                        this.Backpack.AddItem(this.EquippedArmor);
+                        Backpack.AddItem(EquippedArmor);
                     }
-                    this.EquippedArmor = newArmor;
-                    this.Backpack.RemoveItem(newArmor);
+                    EquippedArmor = newArmor;
+                    Backpack.RemoveItem(newArmor);
                 }
             }
-            else
-            {
-                Console.WriteLine("You have nothing to equip!");
-            }
+            else Console.WriteLine("You have nothing to equip!");
+
             Console.ReadKey();
             Console.Clear();
         }
@@ -121,54 +120,51 @@ namespace _16_RPG_Exercise
                 EquippedItems();
                 Console.WriteLine("Wich item do you want to unequip?");
                 int userChoice = InputHelper.ReadInt(1, 2);
-                if (userChoice == 1 && this.EquippedSword != null)
+                if (userChoice == 1)
                 {
-                    Backpack.AddItem(this.EquippedSword);
-                    this.EquippedSword = null;
+                    if (EquippedSword != null)
+                    {
+                        Backpack.AddItem(EquippedSword);
+                        EquippedSword = null;
+                    }
+                    else Console.WriteLine("You don't have a sword equipped!");
                 }
-                else
+                else if (userChoice == 2)
                 {
-                    Console.WriteLine("You don't have a sword equipped!");
-                }
-                if (userChoice == 2 && this.EquippedArmor != null)
-                {
-                    Backpack.AddItem(this.EquippedArmor);
-                    this.EquippedArmor = null;
-                }
-                else
-                {
-                    Console.WriteLine("You don't have an armor equipped!");
+                    if (EquippedArmor != null)
+                    {
+                        Backpack.AddItem(EquippedArmor);
+                        EquippedArmor = null;
+                    }
+                    else Console.WriteLine("You don't have an armor equipped!");
                 }
             }
         }
         //Display equipped items
         public void EquippedItems()
         {
-            Console.WriteLine($"1 - Sword: {this.EquippedSword?.Name ?? "Empty"}");
-            Console.WriteLine($"2 - Armor: {this.EquippedArmor?.Name ?? "Empty"}");
+            Console.WriteLine($"1 - Sword: {EquippedSword?.Name ?? "Empty"}");
+            Console.WriteLine($"2 - Armor: {EquippedArmor?.Name ?? "Empty"}");
         }
         // Check for enough gold
-        public bool EnoughGold(int price)
-        {
-            return this.Gold >= price;
-        }
+        public bool EnoughGold(int price) => Gold >= price;
         // Add/remove gold
-        public void AddGold(int amount)
-        {
-            this.Gold += amount;
-        }
-        public void RemoveGold(int amount)
-        {
-            this.Gold -= amount;
-        }
+        public void AddGold(int amount) => Gold += amount;
+        public void RemoveGold(int amount) => Gold -= amount;
         // Add/remove health
-        public void AddHealth(int amount)
+        public void AddHealth(int amount) => Health += amount;
+        public void RemoveHealth(int amount) => Health -= amount;
+        //Show stats
+        public void DisplayStats()
         {
-            this.Health += amount;
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Health: {Health}/{MaxHealth}");
+            Console.WriteLine($"Level: {Level}");
+            Console.WriteLine($"Experience: {Experience}");
+            Console.WriteLine($"Gold: {Gold}");
+            Console.WriteLine($"Attack: {AttackHeroStat}");
+            Console.WriteLine($"Armor: {ArmorHeroStat}");
+            Console.WriteLine($"Evasion: {Evasion}");
         }
-        public void RemoveHealth(int amount)
-        {
-            this.Health -= amount;
-        }
+      }
     }
-}
